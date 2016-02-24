@@ -5,7 +5,7 @@
 ###Android Studio下：
 ```groovy
     dependencies {
-        compile 'com.hedgehog.ratingbar:app:1.0.2'
+        compile 'com.hedgehog.ratingbar:app:1.0.4'
     }
 ```
 ###1，在XML中
