@@ -13,19 +13,21 @@ import java.math.BigDecimal;
 
 /**
  * Created by hedge_hog on 2015/6/11.
- *
- * add halfstar show
- *
- * Correction clickEvent from Xml
+ * update by hedge_hog on 2016/6/22
  */
 public class RatingBar extends LinearLayout {
     private boolean mClickable;
+    private boolean halfstart;
     private int starCount;
     private OnRatingChangeListener onRatingChangeListener;
     private float starImageSize;
+    private float starImageWidth;
+    private float starImageHeight;
+    private float starImagePadding;
     private Drawable starEmptyDrawable;
     private Drawable starFillDrawable;
     private Drawable starHalfDrawable;
+    private int y = 1;
 
     public void setStarHalfDrawable(Drawable starHalfDrawable) {
         this.starHalfDrawable = starHalfDrawable;
@@ -40,6 +42,10 @@ public class RatingBar extends LinearLayout {
         this.mClickable = clickable;
     }
 
+    public void halfStar(boolean halfstart) {
+        this.halfstart = halfstart;
+    }
+
     public void setStarFillDrawable(Drawable starFillDrawable) {
         this.starFillDrawable = starFillDrawable;
     }
@@ -52,6 +58,23 @@ public class RatingBar extends LinearLayout {
         this.starImageSize = starImageSize;
     }
 
+    public void setStarImageWidth(float starImageWidth) {
+        this.starImageWidth = starImageWidth;
+    }
+
+    public void setStarImageHeight(float starImageHeight) {
+        this.starImageHeight = starImageHeight;
+    }
+
+
+    public void setStarCount(int starCount) {
+        this.starCount = starCount;
+    }
+
+    public void setImagePadding(float starImagePadding) {
+        this.starImagePadding = starImagePadding;
+    }
+
 
     /**
      * @param context
@@ -61,21 +84,47 @@ public class RatingBar extends LinearLayout {
         super(context, attrs);
         setOrientation(LinearLayout.HORIZONTAL);
         TypedArray mTypedArray = context.obtainStyledAttributes(attrs, R.styleable.RatingBar);
-        starImageSize = mTypedArray.getDimension(R.styleable.RatingBar_starImageSize, 20);
+
+        starHalfDrawable = mTypedArray.getDrawable(R.styleable.RatingBar_starHalf);
+
+        starImageSize = mTypedArray.getDimension(R.styleable.RatingBar_starImageSize, 120);
+        starImageWidth = mTypedArray.getDimension(R.styleable.RatingBar_starImageWidth, 60);
+        starImageHeight = mTypedArray.getDimension(R.styleable.RatingBar_starImageHeight, 120);
+        starImagePadding = mTypedArray.getDimension(R.styleable.RatingBar_starImagePadding, 15);
         starCount = mTypedArray.getInteger(R.styleable.RatingBar_starCount, 5);
         starEmptyDrawable = mTypedArray.getDrawable(R.styleable.RatingBar_starEmpty);
         starFillDrawable = mTypedArray.getDrawable(R.styleable.RatingBar_starFill);
-        mClickable=mTypedArray.getBoolean(R.styleable.RatingBar_clickable,true);
+        mClickable = mTypedArray.getBoolean(R.styleable.RatingBar_clickable, true);
+        halfstart = mTypedArray.getBoolean(R.styleable.RatingBar_halfstart, false);
+
         for (int i = 0; i < starCount; ++i) {
-            ImageView imageView = getStarImageView(context, attrs);
+            ImageView imageView = getStarImageView(context);
+
             imageView.setOnClickListener(
                     new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            if (mClickable) {
-                                setStar(indexOfChild(v) + 1);
+                            if (mClickable && halfstart) {
+                                //TODO:This is not the best way to solve half a star,
+                                //TODO:but That's what I can do,Please let me know if you have a better solution
+                                if (y % 2 == 0) {
+                                    setStar(indexOfChild(v) + 1f);
+                                } else {
+                                    setStar(indexOfChild(v) + 0.5f);
+                                }
                                 if (onRatingChangeListener != null) {
-                                    onRatingChangeListener.onRatingChange(indexOfChild(v) + 1);
+                                    if (y % 2 == 0) {
+                                        onRatingChangeListener.onRatingChange(indexOfChild(v) + 1f);
+                                        y++;
+                                    } else {
+                                        onRatingChangeListener.onRatingChange(indexOfChild(v) + 0.5f);
+                                        y++;
+                                    }
+                                }
+                            } else {
+                                setStar(indexOfChild(v) + 1f);
+                                if (onRatingChangeListener != null) {
+                                    onRatingChangeListener.onRatingChange(indexOfChild(v) + 1f);
                                 }
                             }
 
@@ -88,24 +137,19 @@ public class RatingBar extends LinearLayout {
 
     /**
      * @param context
-     * @param attrs
      * @return
      */
-    private ImageView getStarImageView(Context context, AttributeSet attrs) {
+    private ImageView getStarImageView(Context context) {
         ImageView imageView = new ImageView(context);
         ViewGroup.LayoutParams para = new ViewGroup.LayoutParams(
-                Math.round(starImageSize),
-                Math.round(starImageSize)
+                Math.round(starImageWidth),
+                Math.round(starImageHeight)
         );
         imageView.setLayoutParams(para);
-        imageView.setPadding(0, 0, 5, 0);
+        imageView.setPadding(0, 0,Math.round(starImagePadding), 0);
         imageView.setImageDrawable(starEmptyDrawable);
-        imageView.setMaxWidth(10);
-        imageView.setMaxHeight(10);
         return imageView;
-
     }
-
 
     /**
      * setting start
@@ -115,11 +159,9 @@ public class RatingBar extends LinearLayout {
 
     public void setStar(float starCount) {
 
-        //浮点数的整数部分
         int fint = (int) starCount;
         BigDecimal b1 = new BigDecimal(Float.toString(starCount));
         BigDecimal b2 = new BigDecimal(Integer.toString(fint));
-        //浮点数的小数部分
         float fPoint = b1.subtract(b2).floatValue();
 
 
@@ -149,16 +191,15 @@ public class RatingBar extends LinearLayout {
 
         }
 
-
     }
 
 
     /**
-     * change stat listener
+     * change start listener
      */
     public interface OnRatingChangeListener {
 
-        void onRatingChange(int RatingCount);
+        void onRatingChange(float RatingCount);
 
     }
 
