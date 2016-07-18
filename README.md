@@ -74,4 +74,4 @@ Thanks[lingguohui][2]for his code
 
 [1]:https://github.com/JackWong025/Android_custom_ratingbarview
 [2]:https://github.com/lingguohui
-[3]:https://github.com/hedge-hog/RatingBar/README_CH.md
+[3]:https://github.com/hedge-hog/RatingBar/blob/master/README_CH.md
