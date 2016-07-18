@@ -88,12 +88,12 @@ xmlns:hedgehog="http://schemas.android.com/apk/res-auto"
 #about
 Because the project need this function, but the android itself on the propagation of the Ratingbar support is very bad, so intend to write their own a, because my ability is limited, a lot of the function is not perfect, if you have a better solution, welcome to tell me, thank you
 
-# unsolved
+#unsolved
 - You can set the padding between the stars，But because the Ratingbar is rewriting Imageview, so distance setting still need to fine tune
 - You can set up half a star，but this method is very bad，Using this method is not recommended，Look at the code if you want to know the details，Please let me know if you have a good solution
 
 
-###Thank
+#Thank
 Thanks the  [Android_custom_ratingbarview][1] You can look at it  
 Thanks[lingguohui][2]for his code
 
