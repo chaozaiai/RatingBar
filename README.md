@@ -69,7 +69,8 @@ Because the project need this function, but the android itself on the propagatio
 
 
 ###Thank
-Thanks the  [Android_custom_ratingbarview][1] You can look at it
+Thanks the  [Android_custom_ratingbarview][1] You can look at it  
+
 Thanks[lingguohui][2]for his code
 
 [1]:https://github.com/JackWong025/Android_custom_ratingbarview
