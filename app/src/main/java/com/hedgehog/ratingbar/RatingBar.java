@@ -76,10 +76,6 @@ public class RatingBar extends LinearLayout {
     }
 
 
-    /**
-     * @param context
-     * @param attrs
-     */
     public RatingBar(Context context, AttributeSet attrs) {
         super(context, attrs);
         setOrientation(LinearLayout.HORIZONTAL);
@@ -135,10 +131,7 @@ public class RatingBar extends LinearLayout {
         }
     }
 
-    /**
-     * @param context
-     * @return
-     */
+
     private ImageView getStarImageView(Context context) {
         ImageView imageView = new ImageView(context);
         ViewGroup.LayoutParams para = new ViewGroup.LayoutParams(
@@ -150,12 +143,6 @@ public class RatingBar extends LinearLayout {
         imageView.setImageDrawable(starEmptyDrawable);
         return imageView;
     }
-
-    /**
-     * setting start
-     *
-     * @param starCount
-     */
 
     public void setStar(float starCount) {
 
