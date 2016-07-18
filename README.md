@@ -34,8 +34,8 @@
 xmlns:hedgehog="http://schemas.android.com/apk/res-auto"
 ```
 ###2，In Java code
-```
 
+    ```
        RatingBar mRatingBar = (RatingBar) findViewById(R.id.ratingbar);
         mRatingBar.setStarEmptyDrawable(getResources().getDrawable(R.mipmap.star_empty));
         mRatingBar.setStarHalfDrawable(getResources().getDrawable(R.mipmap.star_half));
@@ -57,6 +57,8 @@ xmlns:hedgehog="http://schemas.android.com/apk/res-auto"
         );
 
         ```
+
+
 
 #about
 Because the project need this function, but the android itself on the propagation of the Ratingbar support is very bad, so intend to write their own a, because my ability is limited, a lot of the function is not perfect, if you have a better solution, welcome to tell me, thank you
