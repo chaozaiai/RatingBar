@@ -5,7 +5,7 @@
 ###Android Studio下：
 ```
     dependencies {
-        compile 'com.hedgehog.ratingbar:app:1.1.0'
+        compile 'com.hedgehog.ratingbar:app:1.1.1'
     }
 ```
 ###1，在XML中

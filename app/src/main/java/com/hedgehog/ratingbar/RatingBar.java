@@ -100,28 +100,31 @@ public class RatingBar extends LinearLayout {
                     new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            if (mClickable && halfstart) {
-                                //TODO:This is not the best way to solve half a star,
-                                //TODO:but That's what I can do,Please let me know if you have a better solution
-                                if (y % 2 == 0) {
-                                    setStar(indexOfChild(v) + 1f);
-                                } else {
-                                    setStar(indexOfChild(v) + 0.5f);
-                                }
-                                if (onRatingChangeListener != null) {
+                            if (mClickable) {
+                                if (halfstart) {
+                                    //TODO:This is not the best way to solve half a star,
+                                    //TODO:but That's what I can do,Please let me know if you have a better solution
                                     if (y % 2 == 0) {
-                                        onRatingChangeListener.onRatingChange(indexOfChild(v) + 1f);
-                                        y++;
+                                        setStar(indexOfChild(v) + 1f);
                                     } else {
-                                        onRatingChangeListener.onRatingChange(indexOfChild(v) + 0.5f);
-                                        y++;
+                                        setStar(indexOfChild(v) + 0.5f);
+                                    }
+                                    if (onRatingChangeListener != null) {
+                                        if (y % 2 == 0) {
+                                            onRatingChangeListener.onRatingChange(indexOfChild(v) + 1f);
+                                            y++;
+                                        } else {
+                                            onRatingChangeListener.onRatingChange(indexOfChild(v) + 0.5f);
+                                            y++;
+                                        }
+                                    }
+                                } else {
+                                    setStar(indexOfChild(v) + 1f);
+                                    if (onRatingChangeListener != null) {
+                                        onRatingChangeListener.onRatingChange(indexOfChild(v) + 1f);
                                     }
                                 }
-                            } else {
-                                setStar(indexOfChild(v) + 1f);
-                                if (onRatingChangeListener != null) {
-                                    onRatingChangeListener.onRatingChange(indexOfChild(v) + 1f);
-                                }
+
                             }
 
                         }
@@ -139,7 +142,7 @@ public class RatingBar extends LinearLayout {
                 Math.round(starImageHeight)
         );
         imageView.setLayoutParams(para);
-        imageView.setPadding(0, 0,Math.round(starImagePadding), 0);
+        imageView.setPadding(0, 0, Math.round(starImagePadding), 0);
         imageView.setImageDrawable(starEmptyDrawable);
         return imageView;
     }
