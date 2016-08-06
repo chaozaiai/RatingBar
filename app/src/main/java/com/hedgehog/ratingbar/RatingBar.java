@@ -12,13 +12,14 @@ import android.widget.LinearLayout;
 import java.math.BigDecimal;
 
 /**
- * Created by hedge_hog on 2015/6/11.
- * update by hedge_hog on 2016/6/22
+ * Created by hedge_hog on 2015/06/11.
+ * update by hedge_hog on 2016/08/06
  */
 public class RatingBar extends LinearLayout {
     private boolean mClickable;
     private boolean halfstart;
     private int starCount;
+    private int starNum;
     private OnRatingChangeListener onRatingChangeListener;
     private float starImageSize;
     private float starImageWidth;
@@ -28,6 +29,7 @@ public class RatingBar extends LinearLayout {
     private Drawable starFillDrawable;
     private Drawable starHalfDrawable;
     private int y = 1;
+    private boolean isEmpty=true;
 
     public void setStarHalfDrawable(Drawable starHalfDrawable) {
         this.starHalfDrawable = starHalfDrawable;
@@ -82,20 +84,24 @@ public class RatingBar extends LinearLayout {
         TypedArray mTypedArray = context.obtainStyledAttributes(attrs, R.styleable.RatingBar);
 
         starHalfDrawable = mTypedArray.getDrawable(R.styleable.RatingBar_starHalf);
-
+        starEmptyDrawable = mTypedArray.getDrawable(R.styleable.RatingBar_starEmpty);
+        starFillDrawable = mTypedArray.getDrawable(R.styleable.RatingBar_starFill);
         starImageSize = mTypedArray.getDimension(R.styleable.RatingBar_starImageSize, 120);
         starImageWidth = mTypedArray.getDimension(R.styleable.RatingBar_starImageWidth, 60);
         starImageHeight = mTypedArray.getDimension(R.styleable.RatingBar_starImageHeight, 120);
         starImagePadding = mTypedArray.getDimension(R.styleable.RatingBar_starImagePadding, 15);
         starCount = mTypedArray.getInteger(R.styleable.RatingBar_starCount, 5);
-        starEmptyDrawable = mTypedArray.getDrawable(R.styleable.RatingBar_starEmpty);
-        starFillDrawable = mTypedArray.getDrawable(R.styleable.RatingBar_starFill);
+        starNum = mTypedArray.getInteger(R.styleable.RatingBar_starNum, 0);
         mClickable = mTypedArray.getBoolean(R.styleable.RatingBar_clickable, true);
         halfstart = mTypedArray.getBoolean(R.styleable.RatingBar_halfstart, false);
 
-        for (int i = 0; i < starCount; ++i) {
-            ImageView imageView = getStarImageView(context);
+        for (int i = 0; i < starNum; ++i) {
+            ImageView imageView = getStarImageView(context,false);
+            addView(imageView);
+        }
 
+        for (int i = 0; i < starCount; ++i) {
+            ImageView imageView = getStarImageView(context,isEmpty);
             imageView.setOnClickListener(
                     new OnClickListener() {
                         @Override
@@ -135,7 +141,7 @@ public class RatingBar extends LinearLayout {
     }
 
 
-    private ImageView getStarImageView(Context context) {
+    private ImageView getStarImageView(Context context,boolean isEmpty) {
         ImageView imageView = new ImageView(context);
         ViewGroup.LayoutParams para = new ViewGroup.LayoutParams(
                 Math.round(starImageWidth),
@@ -143,7 +149,11 @@ public class RatingBar extends LinearLayout {
         );
         imageView.setLayoutParams(para);
         imageView.setPadding(0, 0, Math.round(starImagePadding), 0);
-        imageView.setImageDrawable(starEmptyDrawable);
+        if(isEmpty){
+            imageView.setImageDrawable(starEmptyDrawable);
+        }else{
+            imageView.setImageDrawable(starFillDrawable);
+        }
         return imageView;
     }
 
@@ -172,7 +182,6 @@ public class RatingBar extends LinearLayout {
                 ((ImageView) getChildAt(i)).setImageDrawable(starEmptyDrawable);
             }
 
-
         } else {
             //drawemptystar
             for (int i = this.starCount - 1; i >= starCount; --i) {
@@ -182,7 +191,6 @@ public class RatingBar extends LinearLayout {
         }
 
     }
-
 
     /**
      * change start listener

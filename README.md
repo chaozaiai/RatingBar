@@ -14,7 +14,7 @@
 ###1，In xml
 
     <com.hedgehog.ratingbar.RatingBar
-         android:id="@+id/ratingbar"
+        android:id="@+id/ratingbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
