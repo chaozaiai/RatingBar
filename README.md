@@ -1,6 +1,6 @@
 # RatingBar
 
-[中文版][3]
+##[中文版][3]
 ##a custom Ratingbar in android
 ![image](https://github.com/hedge-hog/RatingBar/blob/master/ic_demo.png)
 
@@ -8,7 +8,7 @@
 ###Android Studio：
 ```groovy
     dependencies {
-        compile 'com.hedgehog.ratingbar:app:1.1.1'
+        compile 'com.hedgehog.ratingbar:app:1.1.2'
     }
 ```
 ###1，In xml
