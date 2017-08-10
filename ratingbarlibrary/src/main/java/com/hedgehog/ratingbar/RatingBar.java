@@ -25,11 +25,12 @@ public class RatingBar extends LinearLayout {
     private float starImageWidth;
     private float starImageHeight;
     private float starImagePadding;
+    private float starImageMarginRight;
     private Drawable starEmptyDrawable;
     private Drawable starFillDrawable;
     private Drawable starHalfDrawable;
     private int y = 1;
-    private boolean isEmpty=true;
+    private boolean isEmpty = true;
 
     public void setStarHalfDrawable(Drawable starHalfDrawable) {
         this.starHalfDrawable = starHalfDrawable;
@@ -68,6 +69,9 @@ public class RatingBar extends LinearLayout {
         this.starImageHeight = starImageHeight;
     }
 
+    public void setStarImageMarginRight(float starImageMarginRight) {
+        this.starImageMarginRight = starImageMarginRight;
+    }
 
     public void setStarCount(int starCount) {
         this.starCount = starCount;
@@ -90,18 +94,19 @@ public class RatingBar extends LinearLayout {
         starImageWidth = mTypedArray.getDimension(R.styleable.RatingBar_starImageWidth, 60);
         starImageHeight = mTypedArray.getDimension(R.styleable.RatingBar_starImageHeight, 120);
         starImagePadding = mTypedArray.getDimension(R.styleable.RatingBar_starImagePadding, 15);
+        starImageMarginRight = mTypedArray.getDimension(R.styleable.RatingBar_starImageMarginRight, 2);
         starCount = mTypedArray.getInteger(R.styleable.RatingBar_starCount, 5);
         starNum = mTypedArray.getInteger(R.styleable.RatingBar_starNum, 0);
         mClickable = mTypedArray.getBoolean(R.styleable.RatingBar_clickable, true);
         halfstart = mTypedArray.getBoolean(R.styleable.RatingBar_halfstart, false);
 
         for (int i = 0; i < starNum; ++i) {
-            ImageView imageView = getStarImageView(context,false);
+            ImageView imageView = getStarImageView(context, false);
             addView(imageView);
         }
 
         for (int i = 0; i < starCount; ++i) {
-            ImageView imageView = getStarImageView(context,isEmpty);
+            ImageView imageView = getStarImageView(context, isEmpty);
             imageView.setOnClickListener(
                     new OnClickListener() {
                         @Override
@@ -130,9 +135,7 @@ public class RatingBar extends LinearLayout {
                                         onRatingChangeListener.onRatingChange(indexOfChild(v) + 1f);
                                     }
                                 }
-
                             }
-
                         }
                     }
             );
@@ -141,17 +144,17 @@ public class RatingBar extends LinearLayout {
     }
 
 
-    private ImageView getStarImageView(Context context,boolean isEmpty) {
+    private ImageView getStarImageView(Context context, boolean isEmpty) {
         ImageView imageView = new ImageView(context);
-        ViewGroup.LayoutParams para = new ViewGroup.LayoutParams(
+        LinearLayout.LayoutParams para = new LinearLayout.LayoutParams(
                 Math.round(starImageWidth),
                 Math.round(starImageHeight)
         );
-        imageView.setLayoutParams(para);
+        para.setMargins(0, 0, Math.round(starImageMarginRight), 0);
         imageView.setPadding(0, 0, Math.round(starImagePadding), 0);
-        if(isEmpty){
+        if (isEmpty) {
             imageView.setImageDrawable(starEmptyDrawable);
-        }else{
+        } else {
             imageView.setImageDrawable(starFillDrawable);
         }
         return imageView;
@@ -187,7 +190,6 @@ public class RatingBar extends LinearLayout {
             for (int i = this.starCount - 1; i >= starCount; --i) {
                 ((ImageView) getChildAt(i)).setImageDrawable(starEmptyDrawable);
             }
-
         }
 
     }

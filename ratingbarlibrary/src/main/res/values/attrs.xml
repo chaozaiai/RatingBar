@@ -5,6 +5,7 @@
         <attr name="starImageWidth" format="dimension"/>
         <attr name="starImageHeight" format="dimension"/>
         <attr name="starImagePadding" format="dimension"/>
+        <attr name="starImageMarginRight" format="dimension" />
         <attr name="starCount" format="integer"/>
         <attr name="starNum" format="integer"/>
         <attr name="starEmpty" format="reference"/>

@@ -1,5 +1,8 @@
 # RatingBar
 
+*补充：*
+*在此基础上去掉了starImagePadding,增加starImageMarginRight*
+
 ##[中文版][3]
 ##a custom Ratingbar in android
 ![image](https://github.com/hedge-hog/RatingBar/blob/master/ic_demo.png)

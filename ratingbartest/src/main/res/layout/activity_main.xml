@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:rating="http://schemas.android.com/apk/res-auto"
+    tools:context="com.techidea.ratingbartest.MainActivity">
+
+    <com.hedgehog.ratingbar.RatingBar
+        android:id="@+id/ratingbar"
+        rating:clickable="true"
+        rating:starCount="5"
+        rating:starEmpty="@mipmap/star_empty"
+        rating:starFill="@mipmap/star_full"
+        rating:starImageHeight="60dp"
+        rating:starImageMarginRight="5dp"
+        rating:starImagePadding="0dp"
+        rating:starImageWidth="60dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp" />
+
+</LinearLayout>
